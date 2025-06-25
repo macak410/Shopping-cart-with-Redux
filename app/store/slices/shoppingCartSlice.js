@@ -10,15 +10,26 @@ const shoppingCartSlice = createSlice({
     reducers: {
         addItem: (state, action) => {
             const { item } = action.payload;
-            state.items.push(item);
+            const existingItem = state.items.find(i => i.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                state.items.push({ ...item, quantity: 1 });
+            }
         },
         removeItem: (state, action) => {
             const { item } = action.payload;
-            state.items = state.items.filter(
-                (cartItem) => cartItem.name !== item.name
-            );
+            const existingItem = state.items.find(i => i.name === item.name);
+            if (existingItem) {
+                if (existingItem.quantity > 1) {
+                    existingItem.quantity -= 1;
+                } else {
+                    state.items = state.items.filter(i => i.name !== item.name);
+                }
+            }
         },
     },
 });
+
 export const { addItem, removeItem } = shoppingCartSlice.actions;
 export default shoppingCartSlice.reducer;
