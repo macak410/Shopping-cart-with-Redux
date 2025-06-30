@@ -14,7 +14,7 @@ export default function Checkout() {
 
     const handleCheckout = () => {
         if (cartItems.length === 0) return alert('Košarica je prazna!');
-        alert(`Hvala na kupnji! Ukupan iznos: ${total}€`);
+        alert(`Thank you for your purchase! Total amount: ${total}€`);
 
         cartItems.forEach((item) => {
             for (let i = 0; i < item.quantity; i++) {
