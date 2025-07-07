@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import CartItemCard from './CartItemCard';
+import CartItemCardWithInput from './CartItemCardWithInput';
 import Checkout from './Checkout';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
     const cartItems = useSelector((state) => state.shoppingCart.items || []);
@@ -15,39 +16,52 @@ export default function Navbar() {
     const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
-        <nav className="flex justify-between items-center py-4 px-10 md:px-40">
-            <h1 className="text-2xl">Shopping Cart with Redux</h1>
+        <nav className="flex justify-between items-center py-4 px-6 md:px-20 bg-white dark:bg-gray-900 text-black dark:text-white shadow-md sticky top-0 z-40 backdrop-blur-md">
+            {/* Logo / Naslov */}
+            <h1 className="text-2xl font-bold tracking-tight text-blue-700 dark:text-blue-400">
+                🛍️ Redux Shop
+            </h1>
 
-            <div
-                onClick={handleToggleCart}
-                className="flex items-center cursor-pointer hover:scale-110 transition gap-2"
-            >
-                <span className="text-2xl">🛒</span>
-                <span className="bg-white text-black text-xs font-bold px-2 py-1 rounded-full min-w-[24px] text-center">
-                    {totalQuantity}
-                </span>
+            {/* Desna strana */}
+            <div className="flex items-center gap-4">
+                <ThemeToggle />
+
+                {/* Ikona košarice */}
+                <div
+                    onClick={handleToggleCart}
+                    className="relative flex items-center cursor-pointer hover:scale-105 transition-transform"
+                    title="Open cart"
+                >
+                    <span className="text-2xl">🛒</span>
+                    <span className="absolute -top-2 -right-2 bg-blue-700 dark:bg-blue-400 text-white dark:text-black text-xs font-bold px-2 py-0.5 rounded-full shadow-md min-w-[24px] text-center">
+                        {totalQuantity}
+                    </span>
+                </div>
             </div>
 
+            {/* Bočna košarica */}
             <article
                 className={`fixed top-0 ${
                     cartOpen ? 'right-0' : 'right-[-150%]'
-                } w-96 bg-black h-full p-6 transition-all duration-500 z-50`}
+                } w-full sm:w-[400px] bg-white dark:bg-gray-950 h-full p-6 transition-all duration-500 z-50 shadow-2xl border-l border-gray-200 dark:border-gray-700`}
             >
                 <section className="flex flex-col h-full space-y-4">
+                    {/* Gumb za zatvaranje */}
                     <div
                         onClick={handleToggleCart}
-                        className="self-end cursor-pointer text-2xl hover:scale-110 transition"
-                        aria-label="Zatvori košaricu"
+                        className="self-end cursor-pointer text-2xl hover:rotate-90 transition-transform duration-300"
+                        aria-label="Close cart"
                     >
                         ✖
                     </div>
 
-                    <div className="flex flex-col space-y-4 overflow-y-auto flex-1">
+                    {/* Artikli u košarici */}
+                    <div className="flex flex-col space-y-4 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
                         {cartItems.length === 0 ? (
-                            <p className="text-center text-gray-400 mt-10">Košarica je prazna</p>
+                            <p className="text-center text-gray-400 mt-10">Your Cart is empty..</p>
                         ) : (
                             cartItems.map((item) => (
-                                <CartItemCard
+                                <CartItemCardWithInput
                                     key={item.name}
                                     itemName={item.name}
                                     itemPrice={item.price}
@@ -58,6 +72,7 @@ export default function Navbar() {
                         )}
                     </div>
 
+                    {/* Checkout */}
                     <Checkout />
                 </section>
             </article>

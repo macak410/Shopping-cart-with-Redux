@@ -11,18 +11,32 @@ export default function CartItemCard({ itemName, itemPrice, itemImg, itemQuantit
     };
 
     return (
-        <div className="flex justify-between items-center w-full space-x-4 pr-2">
-            <Image src={itemImg} alt={itemName} width={80} height={80} className="bg-gray-300" />
-            <div className="flex flex-col flex-1">
-                <span className="font-semibold">{itemName}</span>
-                <span className="text-sm text-gray-400">Quantity: {itemQuantity}</span>
-                <span className="text-sm text-gray-400">
-                    Total: {itemPrice * itemQuantity}€
+        <div className="flex items-center w-full bg-white rounded-lg shadow-md p-4 mb-4 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 dark:text-white">
+            {/* Slika proizvoda */}
+            <div className="w-20 h-20 relative rounded overflow-hidden bg-gray-100 dark:bg-gray-700">
+                <Image
+                    src={itemImg}
+                    alt={itemName}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded"
+                />
+            </div>
+
+            {/* Detalji o proizvodu */}
+            <div className="flex flex-col flex-1 ml-4">
+                <span className="font-semibold text-lg text-gray-800 dark:text-white">{itemName}</span>
+                <span className="text-sm text-gray-500 dark:text-gray-300">Quantity: {itemQuantity}</span>
+                <span className="text-sm text-gray-600 font-medium dark:text-gray-200">
+                    Total: {(itemPrice * itemQuantity).toFixed(2)}€
                 </span>
             </div>
+
+            {/* Gumb za uklanjanje */}
             <button
                 onClick={handleRemoveFromCart}
-                className="border border-red-600 p-2 rounded hover:scale-110 transition mr-2"
+                className="ml-4 text-red-600 hover:text-red-800 transition-transform transform hover:scale-110 text-xl"
+                title="Remove item"
             >
                 🗑
             </button>
