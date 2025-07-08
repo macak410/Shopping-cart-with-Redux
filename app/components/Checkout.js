@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem } from '../store/slices/shoppingCartSlice';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 export default function Checkout() {
   const cartItems = useSelector((state) => state.shoppingCart.items || []);

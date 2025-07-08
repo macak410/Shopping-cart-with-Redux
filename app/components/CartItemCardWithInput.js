@@ -2,13 +2,14 @@
 import Image from 'next/image';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { removeItem, setQuantity } from '../store/slices/shoppingCartSlice';
+import { removeItem, setQuantity, removeAllOfItem } from '../store/slices/shoppingCartSlice';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 export default function CartItemCardWithStepper({ itemName, itemPrice, itemImg, itemQuantity }) {
     const dispatch = useDispatch();
 
-    const handleRemove = () => {
-        dispatch(removeItem({ item: { name: itemName } }));
+    const handleRemoveAll = () => {
+        dispatch(removeAllOfItem({ item: { name: itemName } }));
     };
 
     const handleQuantityChange = (value) => {
@@ -64,11 +65,11 @@ export default function CartItemCardWithStepper({ itemName, itemPrice, itemImg, 
             </div>
 
             <button
-                onClick={handleRemove}
-                className="text-red-600 hover:text-red-800 transition-transform transform hover:scale-110 text-xl"
+                onClick={handleRemoveAll}
+                className="px-2 py-1 rounded-md bg-red-100 text-red-700 hover:bg-red-500 hover:text-white dark:bg-red-800 dark:text-red-100 dark:hover:bg-red-600 transition-all duration-200 flex items-center justify-center"
                 title="Remove item"
-            >
-                🗑
+                >
+                <TrashIcon className="w-5 h-5" />
             </button>
         </div>
     );
