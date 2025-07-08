@@ -38,12 +38,17 @@ module.exports = {
             transform: 'translateY(-3px) rotate(4deg)',
           },
         },
+        slideIn: {
+          '0%': { opacity: 0, transform: 'translateX(20px)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
+        },
       },
       animation: {
         pop: 'pop 0.3s ease-out',
         wiggle: 'wiggle 0.4s ease-in-out',
         softBounce: 'softBounce 0.5s ease-in-out',
         bounceRotate: 'bounceRotate 0.6s ease-in-out',
+        'slide-in': 'slideIn 0.3s ease-out',
       },
       colors: {
         candy: '#FF90B3',

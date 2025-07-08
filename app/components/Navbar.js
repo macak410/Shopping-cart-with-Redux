@@ -9,19 +9,25 @@ import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 export default function Navbar() {
   const cartItems = useSelector((state) => state.shoppingCart.items || []);
   const [cartOpen, setCartOpen] = useState(false);
+  const [shouldRenderCart, setShouldRenderCart] = useState(false);
   const [isBouncing, setIsBouncing] = useState(false);
 
   const handleToggleCart = () => {
-    setCartOpen(!cartOpen);
+    if (cartOpen) {
+      setCartOpen(false);
+      setTimeout(() => setShouldRenderCart(false), 300); // trajanje slide-out animacije
+    } else {
+      setShouldRenderCart(true);
+      setTimeout(() => setCartOpen(true), 10); // mali delay za animaciju
+    }
   };
 
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  // 🔁 Trigger bounce animaciju svakih 5 sekundi
+  // Pokreni bounce animaciju jednom pri učitavanju
   useEffect(() => {
     setIsBouncing(true);
     const timeout = setTimeout(() => setIsBouncing(false), 600);
-
     return () => clearTimeout(timeout);
   }, []);
 
@@ -55,46 +61,48 @@ export default function Navbar() {
       </div>
 
       {/* Bočna košarica */}
-      <article
-        className={`fixed top-0 ${
-          cartOpen ? 'right-0' : 'right-[-100%]'
-        } w-full sm:w-[400px] h-screen max-h-screen bg-white dark:bg-gray-950 p-6 transition-all duration-500 z-50 shadow-2xl border-l border-gray-200 dark:border-gray-700`}
-      >
-        <section className="flex flex-col h-full">
-          {/* Gumb za zatvaranje */}
-          <div className="shrink-0 flex justify-end mb-4">
-            <button
-              onClick={handleToggleCart}
-              className="text-2xl hover:rotate-90 transition-transform duration-300"
-              aria-label="Close cart"
-            >
-              ✖
-            </button>
-          </div>
+      {shouldRenderCart && (
+        <article
+          className={`fixed top-0 right-0 w-full sm:w-[400px] h-screen max-h-screen bg-white dark:bg-gray-950 p-6 z-50 shadow-2xl border-l border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out ${
+            cartOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <section className="flex flex-col h-full">
+            {/* Gumb za zatvaranje */}
+            <div className="shrink-0 flex justify-end mb-4">
+              <button
+                onClick={handleToggleCart}
+                className="text-2xl hover:rotate-90 transition-transform duration-300"
+                aria-label="Close cart"
+              >
+                ✖
+              </button>
+            </div>
 
-          {/* Artikli u košarici */}
-          <div className="flex-1 overflow-y-auto space-y-4 pr-1">
-            {cartItems.length === 0 ? (
-              <p className="text-center text-gray-400 mt-10">Your cart is empty</p>
-            ) : (
-              cartItems.map((item) => (
-                <CartItemCardWithInput
-                  key={item.name}
-                  itemName={item.name}
-                  itemPrice={item.price}
-                  itemImg={item.img}
-                  itemQuantity={item.quantity}
-                />
-              ))
-            )}
-          </div>
+            {/* Artikli u košarici */}
+            <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+              {cartItems.length === 0 ? (
+                <p className="text-center text-gray-400 mt-10">Your cart is empty</p>
+              ) : (
+                cartItems.map((item) => (
+                  <CartItemCardWithInput
+                    key={item.name}
+                    itemName={item.name}
+                    itemPrice={item.price}
+                    itemImg={item.img}
+                    itemQuantity={item.quantity}
+                  />
+                ))
+              )}
+            </div>
 
-          {/* Checkout na dnu */}
-          <div className="shrink-0 mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
-            <Checkout />
-          </div>
-        </section>
-      </article>
+            {/* Checkout na dnu */}
+            <div className="shrink-0 mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+              <Checkout />
+            </div>
+          </section>
+        </article>
+      )}
     </nav>
   );
 }
