@@ -11,10 +11,12 @@ cd Shopping-cart-with-Redux
 
 # 🛒 Shopping Cart with Redux
 
-Ova aplikacija je edukativni projekt izrade moderne web trgovine koristeći **Next.js**, **React**, **Redux Toolkit** i **Tailwind CSS**.  
-Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način rada, responzivni dizajn i glatke animacije.
+Ova aplikacija je edukativni projekt izrade moderne web trgovine koristeći **Next.js**, **React**
+, **Redux Toolkit** i **Tailwind CSS**.  
+Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način rada, responzivni dizajn
+ i glatke animacije.
 
-🔗 GitHub repo: [macak410/Shopping-cart-with-Redux](https://github.com/macak410/Shopping-cart-with-Redux)
+🔗 GitHub repo:(https://github.com/macak410/Shopping-cart-with-Redux)
 
 ---
 
@@ -68,7 +70,8 @@ Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način ra
 
 ### 🧩 Architecture & Components
 - **Modular Component Design**
-  - Components like `Navbar`, `ItemsSection`, `ItemCard`, `CartItemCard`, `Checkout`, `ThemeToggle`, `ClientProvider`, etc.
+  - Components like `Navbar`, `ItemsSection`, `ItemCard`, `CartItemCard`, `Checkout`, `ThemeToggle`,
+   `ClientProvider`, etc.
 
 - **Theme Support**
   - `ThemeToggle` component with light/dark mode switching
