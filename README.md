@@ -11,8 +11,8 @@ cd Shopping-cart-with-Redux
 
 # 🛒 Shopping Cart with Redux
 
-Ova aplikacija je edukativni projekt izrade moderne web trgovine koristeći **Next.js**, **React**
-, **Redux Toolkit** i **Tailwind CSS**.  
+Ova aplikacija je edukativni projekt izrade moderne web trgovine koristeći **Next.js**, **React**,
+ **Redux Toolkit** i **Tailwind CSS**.  
 Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način rada, responzivni dizajn
  i glatke animacije.
 
