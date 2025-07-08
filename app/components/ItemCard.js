@@ -12,21 +12,42 @@ export default function ItemCard({ itemName, itemPrice, itemImg, itemTag }) {
   const itemQuantity = itemInCart ? itemInCart.quantity : 0;
 
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isAppearing, setIsAppearing] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const handleAdd = () => {
+    const isFirstAdd = itemQuantity === 0;
     setIsAnimating(true);
+
     setTimeout(() => {
-        dispatch(addItem({ item: { name: itemName, price: itemPrice, img: itemImg } }));
-        setIsAnimating(false);
+      dispatch(addItem({ item: { name: itemName, price: itemPrice, img: itemImg } }));
+      setIsAnimating(false);
+
+      if (isFirstAdd) {
+        setIsAppearing(true);
+        setTimeout(() => setIsAppearing(false), 200); // trajanje animacije
+      }
     }, 150);
   };
 
   const handleRemove = () => {
-    dispatch(removeItem({ item: { name: itemName } }));
+    if (itemQuantity === 1) {
+        setIsRemoving(true);
+        setTimeout(() => {
+        dispatch(removeItem({ item: { name: itemName } }));
+        setIsRemoving(false);
+        }, 300);
+    } else {
+        dispatch(removeItem({ item: { name: itemName } }));
+    }
   };
 
   const handleRemoveAll = () => {
-    dispatch(removeAllOfItem({ item: { name: itemName } }));
+    setIsRemoving(true);
+    setTimeout(() => {
+        dispatch(removeAllOfItem({ item: { name: itemName } }));
+        setIsRemoving(false);
+    }, 300);
   };
 
   return (
@@ -70,17 +91,20 @@ export default function ItemCard({ itemName, itemPrice, itemImg, itemTag }) {
         </div>
 
         {/* Gumbi za dodavanje/uklanjanje */}
-        <div className="flex items-center justify-center w-full space-x-2 min-h-[48px]">
+        <div className="flex items-center justify-center w-full min-h-[48px] relative">
             {itemQuantity === 0 ? (
                 <button
-                    onClick={handleAdd}
-                    className={`w-full px-4 py-2 border border-blue-700 dark:border-blue-400 rounded-md text-sm font-medium transition-all duration-300 hover:bg-blue-700 hover:text-white dark:hover:bg-blue-400 dark:hover:text-black
-                        ${isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'}`}
-                    >
-                    Add to cart
+                onClick={handleAdd}
+                className={`w-full px-4 py-2 border border-blue-700 dark:border-blue-400 rounded-md text-sm font-medium transition-all duration-200 hover:bg-blue-700 hover:text-white dark:hover:bg-blue-400 dark:hover:text-black
+                    ${isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'}`}
+                >
+                Add to cart
                 </button>
             ) : (
-                <>
+                <div
+                className={`flex items-center gap-2 transition-all duration-300
+                    ${isRemoving || isAppearing ? 'opacity-0 scale-90 blur-[1px]' : 'opacity-100 scale-100 blur-0'}`}
+                >
                 <button
                     onClick={handleRemove}
                     className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
@@ -100,12 +124,12 @@ export default function ItemCard({ itemName, itemPrice, itemImg, itemTag }) {
                     onClick={handleRemoveAll}
                     className="px-3 py-2 rounded-md bg-red-100 text-red-700 hover:bg-red-500 hover:text-white dark:bg-red-800 dark:text-red-100 dark:hover:bg-red-600 transition-all duration-200 flex items-center justify-center"
                     title="Remove all"
-                    >
+                >
                     <TrashIcon className="w-5 h-5" />
                 </button>
-                </>
+                </div>
             )}
-            </div>
+        </div>
     </div>
     </section>
   );
