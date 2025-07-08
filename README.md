@@ -1,8 +1,13 @@
+
+```bash
+
+📄 License
+This project is for educational purposes. Feel free to fork and build upon it!
+
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
 
-```bash
 git clone https://github.com/macak410/Shopping-cart-with-Redux.git
 cd Shopping-cart-with-Redux
 
@@ -17,6 +22,27 @@ Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način ra
  i glatke animacije.
 
 🔗 GitHub repo:(https://github.com/macak410/Shopping-cart-with-Redux)
+
+
+- **📁 Project Structure**
+
+  app/
+├── layout.js            # Root layout with global providers
+├── page.js              # Home page with Navbar and ItemsSection
+├── components/          # Reusable UI components
+│   ├── Navbar.js
+│   ├── ItemCard.js
+│   ├── ItemsSection.js
+│   ├── CartItemCard.js
+│   ├── Checkout.js
+│   └── ThemeToggle.js
+├── store/               # Redux store and slices
+│   ├── store.js
+│   └── slices/
+│       └── shoppingCartSlice.js
+├── assets/              # Static images (e.g. product images)
+├── globals.css          # Tailwind base styles and custom CSS
+└── ClientProvider.js    # Redux Provider wrapper
 
 ---
 
@@ -93,3 +119,12 @@ Cilj je demonstrirati upravljanje globalnim stanjem, podršku za tamni način ra
 
 - **Responsive Design**
   - Tailwind grid system (`grid-cols`, `container`, `mx-auto`, `px-4`, etc.)
+
+- **🔮 Future Enhancements**
+- [ ] Add redux-persist to save cart state in localStorage
+- [ ] Integrate framer-motion for smoother animations
+- [ ] Add product filtering by price or tag
+- [ ] Add authentication and user profiles
+- [ ] Connect to a CMS (e.g. Sanity, Contentful) for dynamic product management
+- [ ] Add payment integration (Stripe or PayPal)
+- [ ] Write unit tests with Jest and React Testing Library
