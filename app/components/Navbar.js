@@ -60,7 +60,7 @@ export default function Navbar() {
                     {/* Artikli u košarici */}
                     <div className="flex-1 overflow-y-auto space-y-4 pr-1">
                         {cartItems.length === 0 ? (
-                        <p className="text-center text-gray-400 mt-10">Tvoja košarica je prazna</p>
+                        <p className="text-center text-gray-400 mt-10">Your cart is empty</p>
                         ) : (
                         cartItems.map((item) => (
                             <CartItemCardWithInput

@@ -38,12 +38,12 @@ export default function Checkout() {
                 disabled={cartItems.length === 0}
                 className={`w-full max-w-xs px-6 py-3 rounded-md text-lg font-medium transition-all duration-300
                     ${
-                        cartItems.length === 0
-                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400'
-                            : 'bg-green-600 text-white hover:bg-green-700'
+                    cartItems.length === 0
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-700 dark:text-gray-400'
+                        : 'bg-green-600 text-white hover:bg-green-700'
                     }`}
-            >
-               ✅ Confirm Purchase
+                >
+                Confirm Purchase
             </button>
         </div>
     );
