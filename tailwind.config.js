@@ -14,13 +14,36 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       keyframes: {
-      pop: {
-        '0%': { transform: 'scale(0.8)', opacity: '0' },
-        '100%': { transform: 'scale(1)', opacity: '1' },
-      },
+        pop: {
+          '0%': { transform: 'scale(0.8)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        wiggle: {
+            '0%, 100%': { transform: 'rotate(0deg)' },
+            '25%': { transform: 'rotate(-6deg)' },
+            '75%': { transform: 'rotate(6deg)' },
+          },
+        softBounce: {
+            '0%, 100%': { transform: 'translateY(0)' },
+            '50%': { transform: 'translateY(-6px)' },
+          },
+        bounceRotate: {
+          '0%, 100%': {
+            transform: 'translateY(0) rotate(0deg)',
+          },
+          '30%': {
+            transform: 'translateY(-6px) rotate(-4deg)',
+          },
+          '60%': {
+            transform: 'translateY(-3px) rotate(4deg)',
+          },
+        },
       },
       animation: {
         pop: 'pop 0.3s ease-out',
+        wiggle: 'wiggle 0.4s ease-in-out',
+        softBounce: 'softBounce 0.5s ease-in-out',
+        bounceRotate: 'bounceRotate 0.6s ease-in-out',
       },
       colors: {
         candy: '#FF90B3',
