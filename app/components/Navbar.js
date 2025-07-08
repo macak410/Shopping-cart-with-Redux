@@ -42,38 +42,42 @@ export default function Navbar() {
             {/* Bočna košarica */}
             <article
                 className={`fixed top-0 ${
-                    cartOpen ? 'right-0' : 'right-[-150%]'
-                } w-full sm:w-[400px] bg-white dark:bg-gray-950 h-full p-6 transition-all duration-500 z-50 shadow-2xl border-l border-gray-200 dark:border-gray-700`}
+                    cartOpen ? 'right-0' : 'right-[-100%]'
+                    } w-full sm:w-[400px] h-screen max-h-screen bg-white dark:bg-gray-950 p-6 transition-all duration-500 z-50 shadow-2xl border-l border-gray-200 dark:border-gray-700`}
             >
-                <section className="flex flex-col h-full space-y-4">
+                <section className="flex flex-col h-full">
                     {/* Gumb za zatvaranje */}
-                    <div
+                    <div className="shrink-0 flex justify-end mb-4">
+                        <button
                         onClick={handleToggleCart}
-                        className="self-end cursor-pointer text-2xl hover:rotate-90 transition-transform duration-300"
+                        className="text-2xl hover:rotate-90 transition-transform duration-300"
                         aria-label="Close cart"
-                    >
+                        >
                         ✖
+                        </button>
                     </div>
 
                     {/* Artikli u košarici */}
-                    <div className="flex flex-col space-y-4 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
+                    <div className="flex-1 overflow-y-auto space-y-4 pr-1">
                         {cartItems.length === 0 ? (
-                            <p className="text-center text-gray-400 mt-10">Your Cart is empty..</p>
+                        <p className="text-center text-gray-400 mt-10">Tvoja košarica je prazna</p>
                         ) : (
-                            cartItems.map((item) => (
-                                <CartItemCardWithInput
-                                    key={item.name}
-                                    itemName={item.name}
-                                    itemPrice={item.price}
-                                    itemImg={item.img}
-                                    itemQuantity={item.quantity}
-                                />
-                            ))
+                        cartItems.map((item) => (
+                            <CartItemCardWithInput
+                            key={item.name}
+                            itemName={item.name}
+                            itemPrice={item.price}
+                            itemImg={item.img}
+                            itemQuantity={item.quantity}
+                            />
+                        ))
                         )}
                     </div>
 
-                    {/* Checkout */}
-                    <Checkout />
+                    {/* Checkout na dnu */}
+                    <div className="shrink-0 mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                        <Checkout />
+                    </div>
                 </section>
             </article>
         </nav>
